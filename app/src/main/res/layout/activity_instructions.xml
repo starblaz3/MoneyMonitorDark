@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_instructions"
+    tools:context=".instructions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:id="@+id/toolbar_instructions"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:elevation="4dp"
+            />
+        <FrameLayout
+            android:id="@+id/frame_instructions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="100dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/linearLayout">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:text="Instructions"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:text="Note:You need to lock the app inorder for it to read sms all the time"
+                        android:textColor="@color/grey"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0) All entries are saved only when submit button is clicked"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:textSize="17sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:layout_marginTop="16dp"
+                        android:textColor="#000000"
+                        android:text="1) This app tracks the sms and only reads the sms of those senders which u manually set in senderNameList "
+                        android:textSize="17sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:textColor="#000000"
+                        android:text="2) in senderNameList there exits 4 senders u can manually set of which 2 are inter-related:"
+                        android:textSize="17sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000000"
+                        android:text="-wallet;this can represent any wallet(paytm/amazon),preferred paytm, as long as the SMS body contains the keyword Rs and debited/credited and u set the channel right."
+                        android:textSize="16sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000000"
+                        android:text="-source for wallet(UPI); this entry only works if cash input for the above wallet is sent in SMS,if you have other inputs for wallets then fill this field with 69420 as this fields purpose is to make sure the amount_spent/month is not incorrect as UPI users cash income would be recorded as well as the wallet expenditure hence doubling amount_spent my technique to counter this problem is that you add cash through UPI and only in perfect powers of 10(not exactly @anir) like 2000,1000 where only 1 digit is other than 0 this way i can add this amount to wallet_balance and deduct it from bank_bal at the same time "
+                        android:textSize="16sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#000000"
+                        android:text="-bank 1; this is common substring in the many SMS channel your UPI account uses. Ex: ADSBIUPI,JDSBIUPI where you would enter SBI into the field as SBI is the common substring and mostly bank sends SMS with title SBI ..."
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="5dp"
+                        android:gravity="start"
+                        android:paddingLeft="10dp"
+                        android:text="- bank 2; if you have another bank account and want to see total bank balance in both banks ,follow similar instructions as bank 1"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:gravity="start"
+                        android:text="3) this app only works if you receive sms properly from your bank"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:textColor="#000000"
+                        android:text="4) u can set monthly_limit, monthly_warning, absolute_limit/month in variables where u can also change your current bank balance and wallet balance if sms are not sent by bank on time"
+                        android:textSize="17sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:gravity="start"
+                        android:text="5) getItem is the list of items u spent money on today, u have to enter items before 12"
+                        android:textColor="#000000"
+                        android:textSize="17sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:gravity="start"
+                        android:text="6) fullList ,as you guessed ,is the list of items u spent on every day displayed over all time "
+                        android:textColor="#000000"
+                        android:textSize="17sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:gravity="start"
+                        android:text="7) and finally deleteList which will wipe out all your information about expenditure and items in a click of a button"
+                        android:textColor="#000000"
+                        android:textSize="17sp"/>
+                </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/nav_view_instructions"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/menu_item"
+        />
+</androidx.drawerlayout.widget.DrawerLayout>
