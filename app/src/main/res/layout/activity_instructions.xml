@@ -177,6 +177,15 @@
                         android:text="7) and finally deleteList which will wipe out all your information about expenditure and items in a click of a button"
                         android:textColor="#000000"
                         android:textSize="17sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="16dp"
+                        android:gravity="start"
+                        android:text="8) In addData u can manually add information about a expenditure u had through cash or didnt receive sms for "
+                        android:textColor="#000000"
+                        android:textSize="17sp"/>
                 </LinearLayout>
         </ScrollView>
     </RelativeLayout>

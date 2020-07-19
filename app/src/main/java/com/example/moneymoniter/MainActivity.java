@@ -10,13 +10,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -41,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static TextView numberInDonut;
     static TextView paytmBal;
     static TextView bankBal;
+    //constants for notifications
+    private static final String CHANNEL_ID="ID";
+    private static final String CHANNEL_NAME="CHANNEL_1";
+    private static final String CHANNEL_DESCRIPTION="TESTING CHANNEL";
     //user set variable:
     //paytm_bal
     //bank_bal
@@ -193,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bankBal=findViewById(R.id.bankBal);
         paytmBal=findViewById(R.id.paytmBal);
         numberInDonut=findViewById(R.id.numberInDonut);
+
         //(this is to clear sharedpref at beginning of prog)  ---->
         //SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         //sharedPreferences.edit().clear().commit();
@@ -215,7 +223,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS}, MY_PERMISSIONS_REQUEST_RECEIVE_SMS);
         }
 
-
+        SharedPreferences sharedPreferencesx=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
+        Gson gsonx=new Gson();
+        String json=sharedPreferencesx.getString("datalist",null);
+        Type type=new TypeToken<ArrayList<datas>>(){}.getType();
+        datalist=gsonx.fromJson(json,type);
+        if(json!=null)
+        {   //to send the notification only if there are elements in datalist with today
+           // Toast.makeText(this, "u will get a notif today at 2215", Toast.LENGTH_SHORT).show();
+            if (DateUtils.isToday(datalist.get(datalist.size() - 1).date.getTime()))
+            {
+                //code to set up channel and pendingIntent for broadcast receiver
+                Intent intent = new Intent(this, MyReceiverNotif.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 280192, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(Calendar.HOUR_OF_DAY, 22);
+                calendar.set(Calendar.MINUTE, 15);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                //interval_day repeats the notification daily
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription(CHANNEL_DESCRIPTION);
+                NotificationManager manager = getSystemService(NotificationManager.class);
+                manager.createNotificationChannel(channel);
+            }
+        }
         //to update the amount of money/month in the textview
         update_amount_month(this);
     }
