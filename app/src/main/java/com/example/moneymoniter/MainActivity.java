@@ -235,11 +235,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 //code to set up channel and pendingIntent for broadcast receiver
                 Intent intent = new Intent(this, MyReceiverNotif.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 280192, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 280192, intent, 0);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, 22);
-                calendar.set(Calendar.MINUTE, 15);
+                calendar.set(Calendar.MINUTE, 50);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
