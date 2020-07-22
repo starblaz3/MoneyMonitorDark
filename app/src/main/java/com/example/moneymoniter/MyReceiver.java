@@ -110,7 +110,7 @@ public class MyReceiver extends BroadcastReceiver {
                             else if(body.contains("credited"))
                                 data.debited=false;
                             else
-                                amount=0;
+                                break;
                             data.setAmount(amount);
                             MainActivity.GetDataFromBroadcastReceiver(data, context);
                             break;
