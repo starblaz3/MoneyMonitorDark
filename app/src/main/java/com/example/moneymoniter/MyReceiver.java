@@ -102,7 +102,15 @@ public class MyReceiver extends BroadcastReceiver {
                                 if (temp % (Math.pow(10, (endingPos - startingPos))) == 0)
                                     data.isperfect = true;
                             }
-                            data.debited = body.contains("debited");
+                            data.debited=false;
+                            if(body.contains("Paid"))
+                                data.debited=true;
+                            else if(body.contains("debited"))
+                                data.debited=true;
+                            else if(body.contains("credited"))
+                                data.debited=false;
+                            else
+                                amount=0;
                             data.setAmount(amount);
                             MainActivity.GetDataFromBroadcastReceiver(data, context);
                             break;

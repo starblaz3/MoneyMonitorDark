@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(Calendar.HOUR_OF_DAY, 22);
-                calendar.set(Calendar.MINUTE, 50);
+                calendar.set(Calendar.MINUTE, 40);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
                     android:id="@+id/linearLayout">
                     <TextView
                         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:gravity="start"
-                        android:text="Note:You need to lock the app inorder for it to read sms all the time"
+                        android:text="Note:You need to lock the app and disable battery optimization inorder for it to read sms all the time"
                         android:textColor="@color/grey"/>
                     <TextView
                         android:layout_width="wrap_content"

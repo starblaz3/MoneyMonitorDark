@@ -107,6 +107,7 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
                 editText[i] = new EditText(this);
                 editText[i].setTextSize(25);
                 editText[i].setText(datalist.get(i).item);
+                editText[i].setHint(datalist.get(i).sender);
                 textView.setText("spent  :" + String.valueOf((int) datalist.get(i).amount));
                 textView.setTextSize(20);
                 linearLayout.addView(editText[i]);
