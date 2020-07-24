@@ -107,6 +107,8 @@ public class MyReceiver extends BroadcastReceiver {
                                 data.debited=true;
                             else if(body.contains("debited"))
                                 data.debited=true;
+                            else if(body.contains("transferred to"))
+                                data.debited=true;
                             else if(body.contains("credited"))
                                 data.debited=false;
                             else
