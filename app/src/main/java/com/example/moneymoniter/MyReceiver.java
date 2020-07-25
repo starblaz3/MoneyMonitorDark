@@ -59,63 +59,66 @@ public class MyReceiver extends BroadcastReceiver {
                 String sender=msgs[i].getOriginatingAddress();
                 data.setSender(msgs[i].getOriginatingAddress().toString());
                 //for loop for checking if one of namelist array elements matches the sender
-                if(body.contains("Rs") || body.contains("INR"))
+                if(!body.contains("requested"))
                 {
-                    for (int k = 0; k < NameList.size(); k++)
+                    if (body.contains("Rs") || body.contains("INR"))
                     {
-                        //its necessary to be "contains" as bank and upi senders generally send
-                        // sms with multiple diff sender names ;JDSBIUPI,ADSBIUPI,SBI-IINB
-                        // so we check if the sender contains a key like SBI hence generalizing all these threads
-                        if (sender.contains(NameList.get(k)))
+                        for (int k = 0; k < NameList.size(); k++)
                         {
-                            //we extract the amount by scanning position of Rs and iteratively check for numbers after Rs as number always follow after Rs or INR
-                            if (body.contains("Rs"))
-                                startingPosx = body.indexOf("Rs");
-                            else if (body.contains("INR"))
-                                startingPosx = body.indexOf("INR");
-                            for (int j = startingPosx; j < body.length(); j++)
+                            //its necessary to be "contains" as bank and upi senders generally send
+                            // sms with multiple diff sender names ;JDSBIUPI,ADSBIUPI,SBI-IINB
+                            // so we check if the sender contains a key like SBI hence generalizing all these threads
+                            if (sender.contains(NameList.get(k)))
                             {
-                                if (Character.isDigit(body.charAt(j)))
+                                //we extract the amount by scanning position of Rs and iteratively check for numbers after Rs as number always follow after Rs or INR
+                                if (body.contains("Rs"))
+                                    startingPosx = body.indexOf("Rs");
+                                else if (body.contains("INR"))
+                                    startingPosx = body.indexOf("INR");
+                                for (int j = startingPosx; j < body.length(); j++)
                                 {
-                                    startingPos = j;
-                                    endingPos = j;
-                                    while (Character.isDigit(body.charAt(endingPos)))
+                                    if (Character.isDigit(body.charAt(j)))
                                     {
-                                        // System.out.println(body.charAt(endingPos)+" "+endingPos);
-                                        endingPos++;
-                                        if (endingPos >= body.length())
-                                            break;
+                                        startingPos = j;
+                                        endingPos = j;
+                                        while (Character.isDigit(body.charAt(endingPos)))
+                                        {
+                                            // System.out.println(body.charAt(endingPos)+" "+endingPos);
+                                            endingPos++;
+                                            if (endingPos >= body.length())
+                                                break;
+                                        }
+                                        endingPos--;
+                                        break;
                                     }
-                                    endingPos--;
-                                    break;
                                 }
-                            }
-                            //to convert from starting pos to ending pos the string into a double
-                            for (int j = endingPos; j >= startingPos; j--)
-                                amount += ((double) (body.charAt(j) - '0')) * (Math.pow(10, endingPos - j));
-                            //this is for wallet functionality where it checks if the sender is the source of the wallet
-                            //and if the amount is a single digit multiple of powers of 10
-                            //and if the debited keyword is present as it will add this amount to paytm_bal and subtract it from bank_bal
-                            if (NameList.get(1).equals(sender) && body.contains("debited"))
-                            {
-                                temp = (int) amount;
-                                if (temp % (Math.pow(10, (endingPos - startingPos))) == 0)
-                                    data.isperfect = true;
-                            }
-                            data.debited=false;
-                            if(body.contains("Paid"))
-                                data.debited=true;
-                            else if(body.contains("debited"))
-                                data.debited=true;
-                            else if(body.contains("transferred to"))
-                                data.debited=true;
-                            else if(body.contains("credited"))
-                                data.debited=false;
-                            else
+                                //to convert from starting pos to ending pos the string into a double
+                                for (int j = endingPos; j >= startingPos; j--)
+                                    amount += ((double) (body.charAt(j) - '0')) * (Math.pow(10, endingPos - j));
+                                //this is for wallet functionality where it checks if the sender is the source of the wallet
+                                //and if the amount is a single digit multiple of powers of 10
+                                //and if the debited keyword is present as it will add this amount to paytm_bal and subtract it from bank_bal
+                                if (NameList.get(1).equals(sender) && body.contains("debited"))
+                                {
+                                    temp = (int) amount;
+                                    if (temp % (Math.pow(10, (endingPos - startingPos))) == 0)
+                                        data.isperfect = true;
+                                }
+                                data.debited = false;
+                                if (body.contains("Paid"))
+                                    data.debited = true;
+                                else if (body.contains("debited"))
+                                    data.debited = true;
+                                else if (body.contains("transferred to"))
+                                    data.debited = true;
+                                else if (body.contains("credited"))
+                                    data.debited = false;
+                                else
+                                    break;
+                                data.setAmount(amount);
+                                MainActivity.GetDataFromBroadcastReceiver(data, context);
                                 break;
-                            data.setAmount(amount);
-                            MainActivity.GetDataFromBroadcastReceiver(data, context);
-                            break;
+                            }
                         }
                     }
                 }
