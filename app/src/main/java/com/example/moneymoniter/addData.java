@@ -2,14 +2,18 @@ package com.example.moneymoniter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,14 +54,35 @@ public class addData extends AppCompatActivity implements NavigationView.OnNavig
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        final Context context=this;
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder=new AlertDialog.Builder(context,R.style.dialog);
+                builder.setMessage(Html.fromHtml("<font color='#D9DEEA'>Are you sure you want to add data</font>"))
+                        .setTitle(Html.fromHtml("<font color='#D9DEEA'>Confirmation</font>"))
+                        .setPositiveButton(Html.fromHtml("<font color='#D9DEEA'>yes</font>"), new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                               funcAddData();
+                            }
+                        });
+                AlertDialog dialog=builder.create();
+                dialog.show();
+            }
+        });
     }
-    public void funcAddData(View view)
+    public void funcAddData()
     {
         datas data=new datas();
         data.date= Calendar.getInstance().getTime();
         data.amount=Double.parseDouble(amountAddData.getText().toString());
         data.sender=senderAddData.getText().toString();
-        if(debitedAddData.getText().toString().isEmpty())
+        if(!debitedAddData.getText().toString().toLowerCase().equals("true") && !debitedAddData.getText().toString().toLowerCase().equals("false"))
         {
             debitedAddData.setError("true or false?");
             return;
@@ -85,6 +110,7 @@ public class addData extends AppCompatActivity implements NavigationView.OnNavig
             editor.putString("datalist",json);
             editor.apply();
         }
+        Toast.makeText(this, "added manual data !", Toast.LENGTH_SHORT).show();
     }
 
     @Override

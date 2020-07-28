@@ -2,14 +2,18 @@ package com.example.moneymoniter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +54,27 @@ public class senderNameList extends AppCompatActivity implements NavigationView.
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        final Context context=this;
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder=new AlertDialog.Builder(context,R.style.dialog);
+                builder.setMessage(Html.fromHtml("<font color='#D9DEEA'>Are you sure you want to add senderNameList</font>"))
+                        .setTitle(Html.fromHtml("<font color='#D9DEEA'>Confirmation</font>"))
+                        .setPositiveButton(Html.fromHtml("<font color='#D9DEEA'>Yes</font>"), new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                updateNameList();
+                            }
+                        });
+                AlertDialog dialog=builder.create();
+                dialog.show();
+            }
+        });
         SharedPreferences sharedPreferences=getSharedPreferences("BankNameList",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         Gson gson=new Gson();
@@ -79,7 +104,7 @@ public class senderNameList extends AppCompatActivity implements NavigationView.
         }
     }
     //update the sender name list when submit button is clicked
-    public void updateNameList(View view)
+    public void updateNameList()
     {
         SharedPreferences sharedPreferences=getSharedPreferences("BankNameList",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -96,6 +121,7 @@ public class senderNameList extends AppCompatActivity implements NavigationView.
             json=gson.toJson(nameList);
             editor.putString("NameList",json);
             editor.apply();
+            Toast.makeText(this, "saved senderNameList :)", Toast.LENGTH_SHORT).show();
         }
     }
 

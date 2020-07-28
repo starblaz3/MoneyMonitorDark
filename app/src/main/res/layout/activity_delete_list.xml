@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout_deleteList"
     android:fitsSystemWindows="true"
+    android:background="@color/black"
     tools:context=".deleteList"
+    tools:openDrawer="start"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/theme"
             android:id="@+id/toolbar_deleteList"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -34,9 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="delete full List"
+            android:textColor="@color/goodwhite"
+            android:background="@drawable/ripple"
             android:layout_marginTop="100dp"
             android:layout_centerHorizontal="true"
-            android:onClick="clicked"
+            android:id="@+id/buttonDeleteList"
             />
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
@@ -44,6 +48,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/nav_view_deleteList"
+        android:background="@color/black"
+        app:itemTextColor="@color/goodwhite"
+        app:itemIconTint="@color/theme"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/menu_item"
         />

@@ -2,19 +2,25 @@ package com.example.moneymoniter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -34,12 +40,16 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
     static ArrayList<datas> datalist;
     private DrawerLayout drawer;
     EditText editText[];
+    EditText editText1[];
+    Button button;
+    EditText editText2[];
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_item);
         Toolbar toolbar=findViewById(R.id.toolbar_GetItem);
         drawer=findViewById(R.id.drawer_layout_GetItem);
+        button=findViewById(R.id.getItemButton);
         NavigationView navigationView=findViewById(R.id.nav_view_GetItem);
         navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
@@ -58,7 +68,8 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
             Type type = new TypeToken<ArrayList<datas>>() {}.getType();
             datalist = gson.fromJson(json, type);
             editText=new EditText[datalist.size()];
-            Date today=Calendar.getInstance().getTime();
+            editText1=new EditText[datalist.size()];
+            editText2=new EditText[datalist.size()];
             for (int i = datalist.size()-1; i >= 0; i--)
             {
                 //checks if the date is today and adds a textview to categorize the list items
@@ -77,12 +88,12 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
                     LinearLayout.LayoutParams params1=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 5);
                     params1.setMargins(0,10,0,40);
                     view.setLayoutParams(params1);
-                    view.setBackgroundColor(Color.parseColor("#C0C0C0"));
+                    view.setBackgroundColor(Color.parseColor("#3700B3"));
                     linearLayout.addView(textView1);
                     linearLayout.addView(view);
                     flag=false;
                 }
-                else if(!DateUtils.isToday(datalist.get(i).getDate().getTime())&&flag1)
+                else if(!DateUtils.isToday(datalist.get(i).getDate().getTime()) && flag1)
                 {
                     TextView textView1=new TextView(this);
                     textView1.setText("Latter expenditure list:");
@@ -97,26 +108,63 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
                     LinearLayout.LayoutParams params1=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 5);
                     params1.setMargins(0,10,0,40);
                     view.setLayoutParams(params1);
-                    view.setBackgroundColor(Color.parseColor("#C0C0C0"));
+                    view.setBackgroundColor(Color.parseColor("#3700B3"));
                     linearLayout.addView(textView1);
                     linearLayout.addView(view);
                     flag1=false;
                 }
-                Spinner spinner=new Spinner(this);
-                TextView textView = new TextView(this);
+                LinearLayout.LayoutParams paramsy=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                paramsy.setMargins(0,0,0,60);
                 editText[i] = new EditText(this);
+                editText1[i]=new EditText(this);
+                editText2[i]=new EditText(this);
                 editText[i].setTextSize(25);
                 editText[i].setText(datalist.get(i).item);
                 editText[i].setHint(datalist.get(i).sender);
-                textView.setText("spent  :" + String.valueOf((int) datalist.get(i).amount));
-                textView.setTextSize(20);
+                editText1[i].setText(String.valueOf(datalist.get(i).isperfect));
+                editText1[i].setLayoutParams(paramsy);
+                editText1[i].setTextColor(Color.parseColor("#D9DEEA"));
+                editText2[i].setTextColor(Color.parseColor("#D9DEEA"));
+                editText[i].setTextColor(Color.parseColor("#D9DEEA"));
+                editText[i].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
+                editText2[i].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.silver)));
+                editText1[i].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.silver)));
+                editText1[i].setHint("UPI to wallet?");
+                editText1[i].setGravity(Gravity.LEFT);
+                editText2[i].setText( String.valueOf((int) datalist.get(i).amount));
+                editText2[i].setHint("amount spent:");
+                editText2[i].setTextSize(20);
                 linearLayout.addView(editText[i]);
-                linearLayout.addView(textView);
+                linearLayout.addView(editText2[i]);
+                linearLayout.addView(editText1[i]);
             }
+            final Context context=this;
+            button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(context,R.style.dialog);
+                    builder.setMessage(Html.fromHtml("<font color='#D9DEEA'>are you sure ?</font>"))
+                            .setTitle(Html.fromHtml("<font color='#D9DEEA'>Confirmation</font>"))
+                            .setPositiveButton(Html.fromHtml("<font color='#D9DEEA'>Yes</font>"), new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i)
+                                {
+                                    updateSharedPreferences();
+                                }
+                            });
+                    AlertDialog dialog=builder.create();
+                    dialog.show();
+                }
+            });
         }
     }
+
+
     //updates shared preferences when submit button is clicked
-    public void updateSharedPreferences(View view)
+    public void updateSharedPreferences()
     {
         SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -131,12 +179,21 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
             datalist = gson.fromJson(json, type);
             for (int i = datalist.size()-1; i >= 0; i--)
             {
+                if(!editText1[i].getText().toString().toLowerCase().contains("false") && !editText1[i].getText().toString().toLowerCase().contains("true"))
+                {
+                    editText1[i].setError("needs to be either true or false!");
+                    return;
+                }
                 itemx = editText[i].getText().toString();
                 datalist.get(i).item = itemx;
+                System.out.println("ok");
+                datalist.get(i).amount=Double.parseDouble(editText2[i].getText().toString());
+                datalist.get(i).isperfect=Boolean.parseBoolean(editText1[i].getText().toString());
             }
             json = gson.toJson(datalist);
             editor.putString("datalist", json);
             editor.apply();
+            Toast.makeText(this, "saved new entries :)", Toast.LENGTH_SHORT).show();
         }
     }
     @Override

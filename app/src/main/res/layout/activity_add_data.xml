@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout_addData"
     android:fitsSystemWindows="true"
-    tools:context=".addData">
+    android:background="@color/black"
+    tools:context=".addData"
+    tools:openDrawer="start">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +16,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/theme"
             android:id="@+id/toolbar_addData"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -27,36 +29,32 @@
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="190dp"
             android:orientation="vertical">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="add Data"
-                android:id="@+id/buttonAddData"
-                android:onClick="funcAddData"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="40dp"
-                />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sender"
+                android:backgroundTint="@color/goodwhite"
                 android:hint="sender"
+                android:textColor="@color/goodwhite"
+                android:textColorHint="@color/goodwhite"
                 android:layout_marginBottom="20dp"
                 android:id="@+id/senderAddData"
                 android:layout_gravity="center_horizontal"/>
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/goodwhite"
                 android:layout_marginBottom="20dp"
                 android:text="itemName"
                 android:hint="itemName"
+                android:textColor="@color/goodwhite"
+                android:textColorHint="@color/goodwhite"
                 android:id="@+id/itemAddData"
                 android:layout_gravity="center_horizontal" />
             <EditText
@@ -64,22 +62,43 @@
                 android:layout_height="wrap_content"
                 android:text="100"
                 android:hint="amount"
+                android:gravity="center_horizontal"
+                android:backgroundTint="@color/goodwhite"
+                android:textColor="@color/goodwhite"
+                android:textColorHint="@color/goodwhite"
                 android:layout_marginBottom="20dp"
                 android:id="@+id/amountAddData"
                 android:layout_gravity="center_horizontal" />
             <EditText
+                android:gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="is debited?"
                 android:text="true"
+                android:backgroundTint="@color/goodwhite"
+                android:textColor="@color/goodwhite"
+                android:textColorHint="@color/goodwhite"
                 android:layout_marginBottom="20dp"
                 android:id="@+id/debitedAddData"
                 android:layout_gravity="center_horizontal" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="add Data"
+                android:textColor="@color/goodwhite"
+                android:id="@+id/buttonAddData"
+                android:background="@drawable/ripple"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="90dp"
+                />
         </LinearLayout>
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="@color/black"
+        app:itemTextColor="@color/goodwhite"
+        app:itemIconTint="@color/theme"
         android:layout_gravity="start"
         android:id="@+id/nav_view_addData"
         app:headerLayout="@layout/navigation_header"

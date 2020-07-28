@@ -2,18 +2,24 @@ package com.example.moneymoniter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +38,7 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
     LinearLayout linearLayout;
     TextView textView;
     ArrayList<Integer> list;
+    Button button;
     LinearLayout.LayoutParams editTextLayoutParams;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +46,34 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_variables);
         Toolbar toolbar=findViewById(R.id.toolbar_variables);
         drawer=findViewById(R.id.drawer_layout_variables);
+        button=findViewById(R.id.buttonVariables);
         NavigationView navigationView=findViewById(R.id.nav_view_variables);
         navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        final Context context=this;
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AlertDialog.Builder builder=new AlertDialog.Builder(context,R.style.dialog);
+                builder.setMessage(Html.fromHtml("<font color='#D9DEEA'>Are you sure you want to add these variables</font>"))
+                        .setTitle(Html.fromHtml("<font color='#D9DEEA'>Confirmation</font>"))
+                        .setPositiveButton(Html.fromHtml("<font color='#D9DEEA'>Yes</font>"), new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                updateVariables();
+                            }
+                        });
+                AlertDialog dialog=builder.create();
+                dialog.show();
+            }
+        });
         SharedPreferences sharedPreferences=getSharedPreferences("varList",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         Gson gson=new Gson();
@@ -76,10 +105,12 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
             textView.setText("bank_bal");
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setTextSize(15);
-            textView.setTextColor(Color.parseColor("#000000"));
+            textView.setTextColor(Color.parseColor("#D9DEEA"));
             editText[0] = new EditText(this);
             editText[0].setText(String.valueOf(list.get(0)));
             editText[0].setTextSize(20);
+            editText[0].setTextColor(Color.parseColor("#D9DEEA"));
+            editText[0].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
             editText[0].setGravity(Gravity.CENTER_HORIZONTAL);
             editText[0].setLayoutParams(editTextLayoutParams);
             linearLayout.addView(editText[0]);
@@ -89,10 +120,12 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
             textView.setText("paytm_bal");
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setTextSize(15);
-            textView.setTextColor(Color.parseColor("#000000"));
+            textView.setTextColor(Color.parseColor("#D9DEEA"));
             editText[1] = new EditText(this);
             editText[1].setText(String.valueOf(list.get(1)));
             editText[1].setTextSize(20);
+            editText[1].setTextColor(Color.parseColor("#D9DEEA"));
+            editText[1].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
             editText[1].setGravity(Gravity.CENTER_HORIZONTAL);
             editText[1].setLayoutParams(editTextLayoutParams);
             linearLayout.addView(editText[1]);
@@ -102,10 +135,12 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
             textView.setText("monthly_warning");
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setTextSize(15);
-            textView.setTextColor(Color.parseColor("#000000"));
+            textView.setTextColor(Color.parseColor("#D9DEEA"));
             editText[2] = new EditText(this);
             editText[2].setText(String.valueOf(list.get(2)));
             editText[2].setTextSize(20);
+            editText[2].setTextColor(Color.parseColor("#D9DEEA"));
+            editText[2].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
             editText[2].setLayoutParams(editTextLayoutParams);
             editText[2].setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.addView(editText[2]);
@@ -115,10 +150,12 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
             textView.setText("monthly_limit");
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setTextSize(15);
-            textView.setTextColor(Color.parseColor("#000000"));
+            textView.setTextColor(Color.parseColor("#D9DEEA"));
             editText[3] = new EditText(this);
             editText[3].setText(String.valueOf(list.get(3)));
             editText[3].setTextSize(20);
+            editText[3].setTextColor(Color.parseColor("#D9DEEA"));
+            editText[3].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
             editText[3].setLayoutParams(editTextLayoutParams);
             editText[3].setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.addView(editText[3]);
@@ -128,18 +165,20 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
             textView.setText("absolute_limit");
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
             textView.setTextSize(15);
-            textView.setTextColor(Color.parseColor("#000000"));
+            textView.setTextColor(Color.parseColor("#D9DEEA"));
             editText[4] = new EditText(this);
             editText[4].setText(String.valueOf(list.get(4)));
             editText[4].setTextSize(20);
+            editText[4].setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.theme)));
             editText[4].setLayoutParams(editTextLayoutParams);
+            editText[4].setTextColor(Color.parseColor("#D9DEEA"));
             editText[4].setGravity(Gravity.CENTER_HORIZONTAL);
             linearLayout.addView(editText[4]);
             linearLayout.addView(textView);
         }
     }
     //updates variables when submit button is clicked
-    public void updateVariables(View view)
+    public void updateVariables()
     {
         SharedPreferences sharedPreferences=getSharedPreferences("varList",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
@@ -152,6 +191,7 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
         String json=gson.toJson(list);
         editor.putString("list",json);
         editor.apply();
+        Toast.makeText(this, "saved variables :)", Toast.LENGTH_SHORT).show();
     }
 
 

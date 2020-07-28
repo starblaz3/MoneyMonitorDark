@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout_fullList"
     android:fitsSystemWindows="true"
-    tools:context=".fullList"
-    tools:openDrawer="start">
+    android:background="@color/black"
+    tools:openDrawer="start"
+    tools:context=".fullList">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +16,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/theme"
             android:id="@+id/toolbar_fullList"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -46,6 +47,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/nav_view_fullList"
+        android:background="@color/black"
+        app:itemTextColor="@color/goodwhite"
+        app:itemIconTint="@color/theme"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/menu_item"
         />
