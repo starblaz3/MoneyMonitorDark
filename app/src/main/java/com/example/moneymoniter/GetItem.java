@@ -122,6 +122,7 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
                 editText[i].setTextSize(25);
                 editText[i].setText(datalist.get(i).item);
                 editText[i].setHint(datalist.get(i).sender);
+                editText[i].setHintTextColor(getResources().getColor(R.color.grey));
                 editText1[i].setText(String.valueOf(datalist.get(i).isperfect));
                 editText1[i].setLayoutParams(paramsy);
                 editText1[i].setTextColor(Color.parseColor("#D9DEEA"));

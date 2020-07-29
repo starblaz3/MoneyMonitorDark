@@ -16,6 +16,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -184,6 +185,14 @@ public class variables extends AppCompatActivity implements NavigationView.OnNav
         SharedPreferences sharedPreferences=getSharedPreferences("varList",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         Gson gson=new Gson();
+        for (int i=0;i<5;i++)
+        {
+            if(!TextUtils.isDigitsOnly(editText[i].getText().toString()))
+            {
+                editText[i].setError("you need to set a number here!!");
+                return;
+            }
+        }
         list.set(0,Integer.parseInt(editText[0].getText().toString()));
         list.set(1,Integer.parseInt(editText[1].getText().toString()));
         list.set(2,Integer.parseInt(editText[2].getText().toString()));

@@ -12,8 +12,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -81,15 +83,30 @@ public class addData extends AppCompatActivity implements NavigationView.OnNavig
     {
         datas data=new datas();
         data.date= Calendar.getInstance().getTime();
-        data.amount=Double.parseDouble(amountAddData.getText().toString());
         data.sender=senderAddData.getText().toString();
         if(!debitedAddData.getText().toString().toLowerCase().equals("true") && !debitedAddData.getText().toString().toLowerCase().equals("false"))
         {
             debitedAddData.setError("true or false?");
             return;
         }
+        if(!TextUtils.isDigitsOnly(amountAddData.getText().toString()))
+        {
+            amountAddData.setError("u need to enter an integer!!");
+            return;
+        }
+        if(senderAddData.getText().toString().isEmpty())
+        {
+            senderAddData.setError("u need to enter a sender name!!");
+            return;
+        }
+        if(itemAddData.getText().toString().isEmpty())
+        {
+            itemAddData.setError("u need to enter a item name!!");
+            return;
+        }
         data.debited=Boolean.parseBoolean(debitedAddData.getText().toString());
         data.item=itemAddData.getText().toString();
+        data.amount=Double.parseDouble(amountAddData.getText().toString());
         SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         Gson gson=new Gson();

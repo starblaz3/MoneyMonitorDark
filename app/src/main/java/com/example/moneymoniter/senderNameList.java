@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
@@ -24,6 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.shadow.ShadowRenderer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.w3c.dom.NameList;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -99,9 +102,13 @@ public class senderNameList extends AppCompatActivity implements NavigationView.
             Type type=new TypeToken<ArrayList<String>>(){}.getType();
             nameList=gson.fromJson(json,type);
             first.setText(nameList.get(0));
+            first.setHint(nameList.get(0));
             second.setText(nameList.get(1));
+            second.setHint(nameList.get(1));
             third.setText(nameList.get(2));
+            third.setHint(nameList.get(2));
             fourth.setText(nameList.get(3));
+            fourth.setHint(nameList.get(3));
         }
     }
     //update the sender name list when submit button is clicked
@@ -115,6 +122,26 @@ public class senderNameList extends AppCompatActivity implements NavigationView.
             Toast.makeText(this, "this is not supposed to happen", Toast.LENGTH_SHORT).show();
         else
         {
+            if(first.getText().toString().isEmpty())
+            {
+                first.setError("need to fill something!!");
+                return;
+            }
+            if(second.getText().toString().isEmpty())
+            {
+                second.setError("need to fill something!!");
+                return;
+            }
+            if(third.getText().toString().isEmpty())
+            {
+                third.setError("need to fill something!!");
+                return;
+            }
+            if(fourth.getText().toString().isEmpty())
+            {
+                fourth.setError("need to fill something!!");
+                return;
+            }
             nameList.set(0,first.getText().toString());
             nameList.set(1,second.getText().toString());
             nameList.set(2,third.getText().toString());
