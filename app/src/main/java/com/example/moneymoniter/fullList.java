@@ -43,6 +43,7 @@ public class fullList extends AppCompatActivity implements NavigationView.OnNavi
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        getWindow().setNavigationBarColor(Color.parseColor("#161623"));
         SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         Gson gson=new Gson();
         String json=sharedPreferences.getString("datalist",null);

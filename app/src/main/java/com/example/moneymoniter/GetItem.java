@@ -56,6 +56,7 @@ public class GetItem extends AppCompatActivity implements NavigationView.OnNavig
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        getWindow().setNavigationBarColor(Color.parseColor("#161623"));
         LinearLayout linearLayout=(LinearLayout) findViewById(R.id.linearLayout);
         SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         Gson gson=new Gson();
