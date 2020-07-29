@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         paytmBal=findViewById(R.id.paytmBal);
         numberInDonut=findViewById(R.id.numberInDonut);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+        getWindow().setNavigationBarColor(Color.parseColor("#161623"));
         //(this is to clear sharedpref at beginning of prog)  ---->
         //SharedPreferences sharedPreferences=getSharedPreferences("sharedPreferences",MODE_PRIVATE);
         //sharedPreferences.edit().clear().commit();
