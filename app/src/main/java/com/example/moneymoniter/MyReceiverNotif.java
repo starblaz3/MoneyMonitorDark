@@ -17,7 +17,7 @@ public class MyReceiverNotif extends BroadcastReceiver
     {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        NotificationCompat.Builder mBuilder=new NotificationCompat.Builder(context,CHANNEL_ID)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notif)
                 .setContentTitle("add Today's Items")
                 .setContentText("add the items you purchased today")
@@ -25,7 +25,7 @@ public class MyReceiverNotif extends BroadcastReceiver
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, GetItem.class), PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(contentIntent);
-        NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(1,mBuilder.build());
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+        notificationManagerCompat.notify(1, mBuilder.build());
     }
 }
